@@ -1,9 +1,78 @@
 # prediction mapping
-class_names={y:x for x,y in train_gen.class_indices.items()}
+# category
 
-material_map=(df.drop_duplicates("category").set_index("category")["material"].to_dict())
+category_to_material = {
+    "plastic_soda_bottles": "plastic",
+    "plastic_water_bottles": "plastic",
+    "plastic_detergent_bottles": "plastic",
+    "plastic_beverage_bottles": "plastic",
+    "plastic_food_containers": "plastic",
+    "plastic_straws": "plastic",
+    "plastic_cup_lids": "plastic",
+    "plastic_shopping_bags": "plastic",
+    "plastic_trash_bags": "plastic",
+    "disposable_plastic_cutlery": "plastic",
 
-recyclable_map=(df.drop_duplicates("category").set_index("category")["recyclable"].to_dict())
+    "glass_beverage_bottles": "glass",
+    "glass_food_jars": "glass",
+    "glass_cosmetic_containers": "glass",
+
+    "steel_food_cans": "metal",
+    "aluminum_food_cans": "metal",
+    "aluminum_soda_cans": "metal",
+    "aerosol_cans": "metal",
+
+    "cardboard_boxes": "paper",
+    "cardboard_packaging": "paper",
+    "office_paper": "paper",
+    "newspaper": "paper",
+    "paper_cups": "paper",
+
+    "styrofoam_cups": "styrofoam",
+    "styrofoam_food_containers": "styrofoam",
+
+    "food_waste": "organic",
+    "coffee_grounds": "organic",
+    "tea_bags": "organic",
+    "eggshells": "organic",
+
+    "clothing": "textile",
+    "shoes": "textile"
+}
+
+#default recyclability state of the items:
+material_defaults = {
+    "plastic": True,
+    "paper": True,
+    "glass": True,
+    "metal": True,
+    "styrofoam": False,
+    "organic": False,
+    "textile": False,
+    "unknown": False
+}
+
+#specific item overrides
+
+item_override={
+    "plastic_straws": False,
+    "plastic_shopping_bags": False,
+    "plastic_cup_lids": False,
+    "plastic_trash_bags": False,
+    "disposable_plastic_cutlery": False,
+    "paper_cups": False,
+    "tea_bags": False,
+}
+
+def get_material(category: str) -> str:
+    return category_to_material.get(category, "unknown")
+
+def recyclability(category: str) -> bool:
+    if category in item_override:
+        return item_override.get(category)
+    else:
+        material_type = get_material(category)
+        return material_defaults.get(material_type, False)
 
 
 
@@ -14,7 +83,7 @@ def rule_engine(category,is_clean,is_dry,is_rigid):
   material=get_material(category)
 
   if not is_clean:
-    return{"Explanantion":"residues can contaminate entire batches of recyclables"}
+    return{"Explanation":"residues can contaminate entire batches of recyclables"}
 
   if not is_dry:
     return{"Explanation":"Wet recyclables lower material recovery quality"}
