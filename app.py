@@ -1,5 +1,6 @@
 import gradio as gr
-from predict import predict_img
+from train import predict_img
+
 
 with gr.Blocks() as demo:
 
