@@ -77,7 +77,7 @@ def recyclability(category: str) -> bool:
 
 
 ## rule engine: to futher filter out items that are not dry,clean or rigid based on blue recyling bin rules
-def rule_engine(category,is_clean,is_dry,is_rigid):
+def rule_engine(category: str,is_clean: bool,is_dry: bool,is_rigid: bool)->dict:
   recyclable=recyclability(category)
 
   material=get_material(category)
