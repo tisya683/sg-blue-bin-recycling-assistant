@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-from utils import (class_names, material_map, recyclable_map,rule_engine)
+from rules import rule_engine
 
 
 #best run of mobilenetv2 
