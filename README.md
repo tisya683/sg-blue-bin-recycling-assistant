@@ -1,8 +1,8 @@
 # SG blue bin recycling assistant
 
-<p align="center">
+
 <img width="553" height="11" alt="image" src="https://github.com/user-attachments/assets/207e15d3-b1c5-4ec1-aeef-9488d0eb0ab5" />
-</p>
+
 
 I started this project because I'm always second-guessing what actually goes into the blue commingled recycling bins found around across all housing estates Singapore. Unlike countries where recyclables are separated by material, these blue bins allow you to throw paper, plastic, glass, and metal into the same bin. However, there are quite a few exceptions that make things confusing.
 
